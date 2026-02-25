@@ -28,25 +28,28 @@ export default function save({ attributes }) {
       )}
 
       {/* FAQ Items */}
-      {faqs.map((faq, index) => (
-        <div key={index} className="faq-item">
-          <button
-            className="faq-question"
-            aria-expanded="false"
-            aria-controls={`faq-answer-${index}`}
-          >
-            <span>{faq.question}</span>
-            <span className="faq-icon">+</span>
-          </button>
-          <div
-            id={`faq-answer-${index}`}
-            className="faq-answer"
-            hidden
-          >
-            <p>{faq.answer}</p>
+      {faqs.map((faq, index) => {
+        const faqId = faq.id || `faq-${index}`;
+        return (
+          <div key={faqId} className="faq-item">
+            <button
+              className="faq-question"
+              aria-expanded="false"
+              aria-controls={`faq-answer-${faqId}`}
+            >
+              <span>{faq.question}</span>
+              <span className="faq-icon">+</span>
+            </button>
+            <div
+              id={`faq-answer-${faqId}`}
+              className="faq-answer"
+              hidden
+            >
+              <p>{faq.answer}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

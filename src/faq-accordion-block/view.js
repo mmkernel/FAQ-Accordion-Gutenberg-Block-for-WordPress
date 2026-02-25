@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Toggle current
         if (!isOpen) {
           button.setAttribute('aria-expanded', 'true');
-          button.querySelector('.faq-icon').textContent = '−';
+          button.querySelector('.faq-icon').textContent = '-';
           button.style.color = activeColor;
-          answer.hidden = false;
+          if (answer) answer.hidden = false;
         }
       });
     });

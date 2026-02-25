@@ -23,6 +23,7 @@
       "type": "array",
       "default": [
         {
+          "id": "faq-default-1",
           "question": "What is your return policy?",
           "answer": "We offer a 30-day return policy."
         }
