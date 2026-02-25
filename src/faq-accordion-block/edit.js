@@ -1,41 +1,153 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import { __ } from '@wordpress/i18n';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import {
+  PanelBody,
+  Button,
+  TextControl,
+  TextareaControl,
+  ToggleControl,
+  ColorPicker,
+  IconButton,
+} from '@wordpress/components';
+import { useState } from '@wordpress/element';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from '@wordpress/block-editor';
+export default function Edit({ attributes, setAttributes }) {
+  const { faqs, activeColor, showSchema } = attributes;
+  const blockProps = useBlockProps({ className: 'faq-accordion-editor' });
+  const [openIndex, setOpenIndex] = useState(null);
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-import './editor.scss';
+  const addFaq = () => {
+    setAttributes({
+      faqs: [...faqs, { question: '', answer: '' }],
+    });
+  };
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
-export default function Edit() {
-	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Faq Accordion Block – hello from the editor!',
-				'faq-accordion-block'
-			) }
-		</p>
-	);
+  const updateFaq = (index, field, value) => {
+    const updated = faqs.map((faq, i) =>
+      i === index ? { ...faq, [field]: value } : faq
+    );
+    setAttributes({ faqs: updated });
+  };
+
+  const removeFaq = (index) => {
+    setAttributes({ faqs: faqs.filter((_, i) => i !== index) });
+  };
+
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+    const reordered = Array.from(faqs);
+    const [moved] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, moved);
+    setAttributes({ faqs: reordered });
+  };
+
+  return (
+    <>
+      {/* Sidebar Panel */}
+      <InspectorControls>
+        <PanelBody title={__('Accordion Settings', 'faq-accordion-block')}>
+          <ToggleControl
+            label={__('Add FAQ Schema Markup', 'faq-accordion-block')}
+            checked={showSchema}
+            onChange={(val) => setAttributes({ showSchema: val })}
+          />
+          <p>{__('Active Item Color', 'faq-accordion-block')}</p>
+          <ColorPicker
+            color={activeColor}
+            onChange={(val) => setAttributes({ activeColor: val })}
+            enableAlpha={false}
+          />
+        </PanelBody>
+      </InspectorControls>
+
+      {/* Editor UI */}
+      <div {...blockProps}>
+        <h2 style={{ marginBottom: '16px' }}>
+          {__('FAQ Accordion', 'faq-accordion-block')}
+        </h2>
+
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="faq-list">
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {faqs.map((faq, index) => (
+                  <Draggable
+                    key={index}
+                    draggableId={`faq-${index}`}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        style={{
+                          border: '1px solid #ddd',
+                          borderRadius: '6px',
+                          padding: '12px',
+                          marginBottom: '10px',
+                          background: '#fff',
+                          ...provided.draggableProps.style,
+                        }}
+                      >
+                        {/* Drag Handle + Toggle */}
+                        <div
+                          style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}
+                        >
+                          <span
+                            {...provided.dragHandleProps}
+                            style={{ cursor: 'grab', fontSize: '18px' }}
+                            title="Drag to reorder"
+                          >
+                            ⠿
+                          </span>
+                          <strong
+                            style={{ flex: 1, cursor: 'pointer' }}
+                            onClick={() =>
+                              setOpenIndex(openIndex === index ? null : index)
+                            }
+                          >
+                            {faq.question || `FAQ #${index + 1}`}
+                          </strong>
+                          <Button
+                            isDestructive
+                            isSmall
+                            onClick={() => removeFaq(index)}
+                          >
+                            ✕
+                          </Button>
+                        </div>
+
+                        {/* Expand fields when clicked */}
+                        {openIndex === index && (
+                          <>
+                            <TextControl
+                              label={__('Question', 'faq-accordion-block')}
+                              value={faq.question}
+                              onChange={(val) => updateFaq(index, 'question', val)}
+                            />
+                            <TextareaControl
+                              label={__('Answer', 'faq-accordion-block')}
+                              value={faq.answer}
+                              onChange={(val) => updateFaq(index, 'answer', val)}
+                              rows={3}
+                            />
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+
+        <Button isPrimary onClick={addFaq} style={{ marginTop: '12px' }}>
+          {__('+ Add FAQ Item', 'faq-accordion-block')}
+        </Button>
+      </div>
+    </>
+  );
 }
