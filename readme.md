@@ -1,6 +1,5 @@
 # Faq Accordion Block
 
-- Contributors: Momcilo Milic
 - Author: Momcilo Milic
 - Author URI: https://MMkernel.com
 - Plugin URI: https://github.com/mmkernel/FAQ-Accordion-Gutenberg-Block-for-WordPress
