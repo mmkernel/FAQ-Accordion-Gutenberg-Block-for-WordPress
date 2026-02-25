@@ -1,18 +1,18 @@
 # Faq Accordion Block
 
-Contributors: Momcilo Milic
-Author: Momcilo Milic
-Author URI: https://MMkernel.com
-Plugin URI: https://github.com/mmkernel/FAQ-Accordion-Gutenberg-Block-for-WordPress
-Tags: block
-Tested up to: 6.8
-Stable tag: 0.1.0
-License: GPL-2.0-or-later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-
-An interactive FAQ accordion block with unlimited Q&A items, drag-and-drop reordering, and optional FAQPage schema markup.
+- Contributors: Momcilo Milic
+- Author: Momcilo Milic
+- Author URI: https://MMkernel.com
+- Plugin URI: https://github.com/mmkernel/FAQ-Accordion-Gutenberg-Block-for-WordPress
+- Tags: block
+- Tested up to: 6.8
+- Stable tag: 0.1.0
+- License: GPL-2.0-or-later
+- License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 # Description
+
+An interactive FAQ accordion block with unlimited Q&A items, drag-and-drop reordering, and optional FAQPage schema markup.
 
 This block lets editors build a clean FAQ accordion: add as many questions as needed, reorder them by drag-and-drop, and optionally output FAQ schema for better search visibility. Front-end script handles expand/collapse with accessible markup.
 
