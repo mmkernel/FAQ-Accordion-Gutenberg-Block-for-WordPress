@@ -1,12 +1,49 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
+.faq-accordion {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: inherit;
 
-.wp-block-create-block-faq-accordion-block {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+  .faq-item {
+    border-bottom: 1px solid #e5e5e5;
+
+    &:first-child {
+      border-top: 1px solid #e5e5e5;
+    }
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 18px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    .faq-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      transition: transform 0.2s ease;
+    }
+  }
+
+  .faq-answer {
+    padding: 0 8px 18px;
+    color: #555;
+    line-height: 1.7;
+    font-size: 0.95rem;
+
+    &:not([hidden]) {
+      display: block;
+    }
+  }
 }
