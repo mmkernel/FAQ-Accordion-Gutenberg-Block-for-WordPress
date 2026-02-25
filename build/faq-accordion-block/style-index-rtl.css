@@ -1,1 +1,45 @@
-.faq-accordion{font-family:inherit;margin:0 auto;max-width:720px}.faq-accordion .faq-item{border-bottom:1px solid #e5e5e5}.faq-accordion .faq-item:first-child{border-top:1px solid #e5e5e5}.faq-accordion .faq-question{align-items:center;background:none;border:none;cursor:pointer;display:flex;font-size:1rem;font-weight:600;justify-content:space-between;padding:18px 8px;text-align:right;transition:color .2s ease;width:100%}.faq-accordion .faq-question:hover{opacity:.8}.faq-accordion .faq-question .faq-icon{font-size:1.4rem;line-height:1;transition:transform .2s ease}.faq-accordion .faq-answer{color:#555;font-size:.95rem;line-height:1.7;padding:0 8px 18px}.faq-accordion .faq-answer:not([hidden]){display:block}
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/faq-accordion-block/style.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
+.faq-accordion {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: inherit;
+}
+.faq-accordion .faq-item {
+  border-bottom: 1px solid #e5e5e5;
+}
+.faq-accordion .faq-item:first-child {
+  border-top: 1px solid #e5e5e5;
+}
+.faq-accordion .faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 18px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: right;
+  transition: color 0.2s ease;
+}
+.faq-accordion .faq-question:hover {
+  opacity: 0.8;
+}
+.faq-accordion .faq-question .faq-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+.faq-accordion .faq-answer {
+  padding: 0 8px 18px;
+  color: #555;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+.faq-accordion .faq-answer:not([hidden]) {
+  display: block;
+}
