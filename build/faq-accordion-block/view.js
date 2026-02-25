@@ -2,31 +2,36 @@
 /*!*****************************************!*\
   !*** ./src/faq-accordion-block/view.js ***!
   \*****************************************/
-/**
- * Use this file for JavaScript code that you want to run in the front-end
- * on posts/pages that contain this block.
- *
- * When this file is defined as the value of the `viewScript` property
- * in `block.json` it will be enqueued on the front end of the site.
- *
- * Example:
- *
- * ```js
- * {
- *   "viewScript": "file:./view.js"
- * }
- * ```
- *
- * If you're not making any changes to this file because your project doesn't need any
- * JavaScript running in the front-end, then you should delete this file and remove
- * the `viewScript` property from `block.json`.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
- */
+document.addEventListener('DOMContentLoaded', () => {
+  const accordions = document.querySelectorAll('.faq-accordion');
+  accordions.forEach(accordion => {
+    const activeColor = accordion.dataset.activeColor || '#0073aa';
+    const questions = accordion.querySelectorAll('.faq-question');
+    questions.forEach(button => {
+      button.addEventListener('click', () => {
+        const isOpen = button.getAttribute('aria-expanded') === 'true';
+        const answer = document.getElementById(button.getAttribute('aria-controls'));
 
-/* eslint-disable no-console */
-console.log('Hello World! (from create-block-faq-accordion-block block)');
-/* eslint-enable no-console */
+        // Close all others
+        questions.forEach(btn => {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.querySelector('.faq-icon').textContent = '+';
+          btn.style.color = '';
+          const ans = document.getElementById(btn.getAttribute('aria-controls'));
+          if (ans) ans.hidden = true;
+        });
+
+        // Toggle current
+        if (!isOpen) {
+          button.setAttribute('aria-expanded', 'true');
+          button.querySelector('.faq-icon').textContent = '−';
+          button.style.color = activeColor;
+          answer.hidden = false;
+        }
+      });
+    });
+  });
+});
 /******/ })()
 ;
 //# sourceMappingURL=view.js.map
